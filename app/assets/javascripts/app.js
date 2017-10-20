@@ -16,14 +16,16 @@ document.addEventListener('DOMContentLoaded', function(event) {
         inputPerson.bioVisible = !inputPerson.bioVisible;
       },
       addPerson: function() {
-        var newPerson = {
+        var params = {
                          name: this.newPersonName,
-                         bio: this.newPersonBio,
-                         bioVisible: false
+                         bio: this.newPersonBio
                         };
-        this.people.push(newPerson);
-        this.newPersonName = "";
-        this.newPersonBio = "";
+        
+        $.post('/api/v1/people.json', params, function(newPerson) {
+          this.people.push(newPerson);
+          this.newPersonName = "";
+          this.newPersonBio = "";
+        }.bind(this));
       },
       deletePerson: function(inputPerson) {
         var index = this.people.indexOf(inputPerson);
