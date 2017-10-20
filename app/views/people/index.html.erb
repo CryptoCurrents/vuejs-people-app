@@ -1,5 +1,8 @@
 <div id="app">
   <h1>Add a Person:</h1>
+  <ul>
+    <li v-for="error in errors">{{ error }}</li>
+  </ul>
   <div>
     Name: <input v-model="newPersonName">
   </div>
