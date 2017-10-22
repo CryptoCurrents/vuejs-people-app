@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
       newPersonName: "",
       newPersonBio: "",
       errors: [],
-      nameFilter: ""
+      searchTermFilter: "",
     },
     mounted: function() {
       $.get('/api/v1/people.json', function(data) {
@@ -43,7 +43,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
         });
       },
       isValidPerson: function(inputPerson) {
-        return inputPerson.name.toLowerCase().indexOf(this.nameFilter.toLowerCase()) !== -1;
+        var validName = inputPerson.name.toLowerCase().indexOf(this.searchTermFilter.toLowerCase()) !== -1;
+        var validBio = inputPerson.bio.toLowerCase().indexOf(this.searchTermFilter.toLowerCase()) !== -1;
+        return validName || validBio;
       }
     },
     computed: {

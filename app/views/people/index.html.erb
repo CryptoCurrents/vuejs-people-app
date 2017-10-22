@@ -1,6 +1,9 @@
 <div id="app">
   <div>
-    Search by Name: <input v-model="nameFilter">
+    Search Term: <input v-model="searchTermFilter" list="names">
+    <datalist id="names">
+      <option v-for="person in people">{{ person.name }}</option>
+    </datalist>
   </div>
   <h1>Add a Person:</h1>
   <ul>
