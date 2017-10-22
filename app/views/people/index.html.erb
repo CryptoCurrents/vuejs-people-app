@@ -17,13 +17,15 @@
   </div>
   <button v-on:click="addPerson()">Add Person</button>
 
-  <div v-for="person in people" v-if="isValidPerson(person)">
-    <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2> 
-    <div v-if="person.bioVisible">
-      <h3>{{ person.bio }}</h3>
-      <h6 v-on:click="deletePerson(person)">delete</h6>
+  <transition-group name="zoomDown">
+    <div v-for="person in people" v-if="isValidPerson(person)" v-bind:key="person.id">
+      <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2> 
+      <div v-if="person.bioVisible">
+        <h3>{{ person.bio }}</h3>
+        <h6 v-on:click="deletePerson(person)">delete</h6>
+      </div>
     </div>
-  </div>
+  </transition-group>
 
   <h4>Total Number of People: {{ people.length }}</h4>
 </div>
