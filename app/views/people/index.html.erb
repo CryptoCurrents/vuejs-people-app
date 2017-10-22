@@ -4,6 +4,9 @@
     <datalist id="names">
       <option v-for="person in people">{{ person.name }}</option>
     </datalist>
+
+    <button v-on:click="setSortAttribute('name')">Sort by Name</button>
+    <button v-on:click="setSortAttribute('bio')">Sort by Bio</button>
   </div>
   <h1>Add a Person:</h1>
   <ul>
@@ -17,10 +20,10 @@
   </div>
   <button v-on:click="addPerson()">Add Person</button>
 
-  <transition-group name="zoomDown">
-    <div v-for="person in people" v-if="isValidPerson(person)" v-bind:key="person.id">
+  <transition-group name="fade">
+    <div v-for="person in modifiedPeople" v-if="isValidPerson(person)" v-bind:key="person.id">
       <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2> 
-      <div v-if="person.bioVisible">
+      <div v-if="true">
         <h3>{{ person.bio }}</h3>
         <h6 v-on:click="deletePerson(person)">delete</h6>
       </div>

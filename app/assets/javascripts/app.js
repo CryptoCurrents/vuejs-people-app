@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
       newPersonBio: "",
       errors: [],
       searchTermFilter: "",
+      sortAttribute: "name"
     },
     mounted: function() {
       $.get('/api/v1/people.json', function(data) {
@@ -46,10 +47,17 @@ document.addEventListener('DOMContentLoaded', function(event) {
         var validName = inputPerson.name.toLowerCase().indexOf(this.searchTermFilter.toLowerCase()) !== -1;
         var validBio = inputPerson.bio.toLowerCase().indexOf(this.searchTermFilter.toLowerCase()) !== -1;
         return validName || validBio;
+      },
+      setSortAttribute: function(inputAttribute) {
+        this.sortAttribute = inputAttribute;
       }
     },
     computed: {
-
+      modifiedPeople: function() {
+        return this.people.sort(function(person1, person2) {
+          return person1[this.sortAttribute].localeCompare(person2[this.sortAttribute]);
+        }.bind(this));
+      }
     }
   });
 });
