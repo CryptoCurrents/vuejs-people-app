@@ -1,4 +1,7 @@
 <div id="app">
+  <div>
+    Search by Name: <input v-model="nameFilter">
+  </div>
   <h1>Add a Person:</h1>
   <ul>
     <li v-for="error in errors">{{ error }}</li>
@@ -11,7 +14,7 @@
   </div>
   <button v-on:click="addPerson()">Add Person</button>
 
-  <div v-for="person in people">
+  <div v-for="person in people" v-if="isValidPerson(person)">
     <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2> 
     <div v-if="person.bioVisible">
       <h3>{{ person.bio }}</h3>

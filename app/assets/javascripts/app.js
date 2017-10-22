@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
       people: [],
       newPersonName: "",
       newPersonBio: "",
-      errors: []
+      errors: [],
+      nameFilter: ""
     },
     mounted: function() {
       $.get('/api/v1/people.json', function(data) {
@@ -32,8 +33,17 @@ document.addEventListener('DOMContentLoaded', function(event) {
         }.bind(this));
       },
       deletePerson: function(inputPerson) {
-        var index = this.people.indexOf(inputPerson);
-        this.people.splice(index, 1);
+        $.ajax({
+          type: 'DELETE',
+          url: `/api/v1/people/${inputPerson.id}.json`,
+          contentType: 'application/json',
+          success: function(newPeople) {
+            this.people = newPeople;
+          }.bind(this)
+        });
+      },
+      isValidPerson: function(inputPerson) {
+        return inputPerson.name.toLowerCase().indexOf(this.nameFilter.toLowerCase()) !== -1;
       }
     },
     computed: {

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       namespace :v1 do
         get '/people' => 'people#index'
         post '/people' => 'people#create'
+        delete '/people/:id' => 'people#destroy'
       end
   end  
 end
